@@ -1,0 +1,32 @@
+{
+  "name": "transactions-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./public/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .ts",
+    "build": "tsc",
+    "dev_no_build": "node ./public/index",
+    "dev": "tsc && node ./public/index"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.6.3",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.50.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.3.1",
+    "@trpc/client": "^10.38.4",
+    "@trpc/server": "^10.38.4",
+    "prisma": "^5.3.1",
+    "winston": "^3.10.0",
+    "zod": "^3.22.2"
+  }
+}
