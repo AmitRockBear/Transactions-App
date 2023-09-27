@@ -8,7 +8,7 @@
     "lint": "eslint . --ext .ts",
     "build": "tsc",
     "dev_no_build": "node ./public/index",
-    "dev": "tsc && node ./public/index"
+    "dev": "tsx watch ./src/index.ts"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +19,7 @@
     "dotenv": "^16.3.1",
     "eslint": "^8.50.0",
     "ts-node": "^10.9.1",
+    "tsx": "^3.13.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {
