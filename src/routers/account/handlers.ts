@@ -3,7 +3,7 @@ import {
   createAccount,
   getAccountById,
   getAccountsByQuery,
-  CreateAccountInput,
+  type CreateAccountInput,
   decreaseAccountBalanceById,
   increaseAccountBalanceById,
 } from "../../db"
