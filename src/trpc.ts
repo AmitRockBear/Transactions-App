@@ -1,7 +1,30 @@
 import { initTRPC } from "@trpc/server"
-import { logger } from "./logger"
+import { ZodError } from "zod"
 
-const t = initTRPC.create()
+import { logger } from "./logger"
+import { getErrorMessage } from "./utils"
+
+const t = initTRPC.create({
+  errorFormatter(opts) {
+    const { type, path, shape, error } = opts
+
+    logger.error(
+      `Request of type: ${type}, to path: ${path} has failed due to: ${
+        getErrorMessage(error) ?? "unknown error"
+      }`
+    )
+
+    return {
+      ...shape,
+      data: {
+        zodError:
+          error.code === "BAD_REQUEST" && error.cause instanceof ZodError
+            ? error.cause.flatten()
+            : null,
+      },
+    }
+  },
+})
 
 export const router = t.router
 
