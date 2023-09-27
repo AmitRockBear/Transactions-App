@@ -67,7 +67,7 @@ export const createAccount = async (input: CreateAccountInput) => {
 
   logger.info(
     `Creating account for user with id: ${userId}, with initial balance of: ${
-      balance || 0
+      balance ?? 0
     }`
   )
 
