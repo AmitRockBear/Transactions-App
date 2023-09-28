@@ -9,29 +9,29 @@ import {
   accountTransactionHandler,
 } from "./handlers"
 
+const isId = z.number().refine(Number.isInteger)
+
 export const accountRouter = router({
   accountList: publicProcedure.query(accountListHandler),
-  accountById: publicProcedure
-    .input(z.number().refine(Number.isInteger))
-    .query(accountByIdHandler),
+  accountById: publicProcedure.input(isId).query(accountByIdHandler),
   accountCreate: publicProcedure
     .input(
       z.object({
         balance: z.number().optional(),
-        userId: z.number().refine(Number.isInteger),
+        userId: isId,
       })
     )
     .mutation(accountCreateHandler),
   accountTransaction: publicProcedure
     .input(
       z.object({
-        fromAccountId: z.number().refine(Number.isInteger),
-        toAccountId: z.number().refine(Number.isInteger),
+        fromAccountId: isId,
+        toAccountId: isId,
         transactionAmount: z.number().refine((number) => number > 0),
       })
     )
     .mutation(accountTransactionHandler),
   accountDeleteById: publicProcedure
-    .input(z.number().refine(Number.isInteger))
+    .input(isId)
     .query(accountDeleteByIdHandler),
 })
