@@ -103,7 +103,7 @@ export const decreaseAccountBalanceById = async (
     })
   } catch (error) {
     throw new Error(
-      `Failed to decrease balance of account with id ${id} by ${amountToDecrease}`
+      `Failed to decrease balance of account with id: ${id}, by ${amountToDecrease}`
     )
   }
 }
@@ -113,7 +113,7 @@ export const increaseAccountBalanceById = async (
   amountToIncrease: number
 ) => {
   logger.info(
-    `Increase balance of account with id: ${id}, by ${amountToIncrease}`
+    `Increasing balance of account with id: ${id}, by ${amountToIncrease}`
   )
 
   try {
@@ -127,7 +127,21 @@ export const increaseAccountBalanceById = async (
     })
   } catch (error) {
     throw new Error(
-      `Failed to increase balance of account with id ${id} by ${amountToIncrease}`
+      `Failed to increase balance of account with id: ${id}, by ${amountToIncrease}`
     )
+  }
+}
+
+export const deleteAccountById = async (id: number) => {
+  logger.info(`Deleting account with id: ${id}`)
+
+  try {
+    return await client.account.delete({
+      where: {
+        id,
+      },
+    })
+  } catch (error) {
+    throw new Error(`Failed to delete account with id: ${id}`)
   }
 }

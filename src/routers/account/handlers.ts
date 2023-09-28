@@ -6,6 +6,7 @@ import {
   type CreateAccountInput,
   decreaseAccountBalanceById,
   increaseAccountBalanceById,
+  deleteAccountById,
 } from "../../db"
 
 export const accountListHandler = async () => {
@@ -22,6 +23,14 @@ export const accountCreateHandler = async (opts: {
 }) => {
   const { input } = opts
   return await createAccount(input)
+}
+
+export const accountDeleteByIdHandler = async (opts: { input: number }) => {
+  const { input: id } = opts
+
+  await deleteAccountById(id)
+
+  return true
 }
 
 interface AccountTransactionInput {

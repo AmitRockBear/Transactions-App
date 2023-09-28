@@ -4,6 +4,7 @@ import { router, publicProcedure } from "../../trpc"
 import {
   accountByIdHandler,
   accountCreateHandler,
+  accountDeleteByIdHandler,
   accountListHandler,
   accountTransactionHandler,
 } from "./handlers"
@@ -30,4 +31,7 @@ export const accountRouter = router({
       })
     )
     .mutation(accountTransactionHandler),
+  accountDeleteById: publicProcedure
+    .input(z.number().refine(Number.isInteger))
+    .query(accountDeleteByIdHandler),
 })

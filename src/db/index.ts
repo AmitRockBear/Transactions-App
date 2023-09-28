@@ -11,6 +11,7 @@ export {
   createAccount,
   getAccountById,
   getAccountsByQuery,
+  deleteAccountById,
   increaseAccountBalanceById,
   decreaseAccountBalanceById,
   AccountProjection,
