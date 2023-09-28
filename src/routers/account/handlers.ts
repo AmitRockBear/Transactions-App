@@ -3,7 +3,7 @@ import {
   createAccount,
   getAccountById,
   getAccountsByQuery,
-  type CreateAccountInput,
+  type CreateAccountData,
   decreaseAccountBalanceById,
   increaseAccountBalanceById,
   deleteAccountById,
@@ -19,7 +19,7 @@ export const accountByIdHandler = async (opts: { input: number }) => {
 }
 
 export const accountCreateHandler = async (opts: {
-  input: CreateAccountInput
+  input: CreateAccountData
 }) => {
   const { input } = opts
   return await createAccount(input)

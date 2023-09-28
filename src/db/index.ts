@@ -16,5 +16,5 @@ export {
   decreaseAccountBalanceById,
   AccountProjection,
   AccountQuery,
-  CreateAccountInput,
+  CreateAccountData,
 } from "./account"

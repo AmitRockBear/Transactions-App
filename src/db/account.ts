@@ -57,12 +57,12 @@ export const getAccountById = async (
   }
 }
 
-export interface CreateAccountInput {
+export interface CreateAccountData {
   balance?: number
   userId: number
 }
 
-export const createAccount = async (input: CreateAccountInput) => {
+export const createAccount = async (input: CreateAccountData) => {
   const { balance, userId } = input
 
   logger.info(
