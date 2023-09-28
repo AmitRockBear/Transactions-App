@@ -1,10 +1,11 @@
 import { PrismaClient } from "@prisma/client"
+
 import { logger } from "../logger"
 import { getErrorMessage } from "../utils"
 
 export const client = new PrismaClient()
 
-export const connectDb = async () => {
+export const connectDb = async (): Promise<void> => {
   logger.info("Connecting to db")
 
   try {
@@ -16,7 +17,7 @@ export const connectDb = async () => {
   }
 }
 
-export const disconnectDb = async () => {
+export const disconnectDb = async (): Promise<void> => {
   logger.info("Disconnecting from db")
 
   try {
