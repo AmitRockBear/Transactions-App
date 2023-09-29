@@ -1,7 +1,6 @@
 import { type Logger, createLogger, transports, format } from "winston"
 
-// eslint-disable-next-line no-var
-export var logger: Logger
+export let logger: Logger
 
 export const initLogger = () => {
   logger = createLogger({
