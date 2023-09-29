@@ -1,7 +1,7 @@
 import { logger } from "../logger"
 import { getErrorMessage } from "../utils"
 import { type Fields, type Projection, type Query } from "../types"
-import { type AccountWithoutUser, updateAccountsUserId } from "./account"
+import { type AccountWithoutUser } from "./account"
 import { client } from "./prisma"
 
 export interface UserWithoutAccounts {

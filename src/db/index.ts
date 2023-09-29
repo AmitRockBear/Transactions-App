@@ -1,4 +1,4 @@
-export { connectDb, disconnectDb } from "./prisma"
+export { client, connectDb, disconnectDb } from "./prisma"
 export {
   getUsersByQuery,
   getUserById,
