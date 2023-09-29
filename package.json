@@ -10,7 +10,7 @@
     "dev_no_build": "node ./public/index",
     "dev": "tsx watch ./src/index.ts"
   },
-  "author": "",
+  "author": "AmitRockBear",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.6.3",
