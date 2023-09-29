@@ -18,8 +18,13 @@ export const initLogger = () => {
     ),
     transports: [
       new transports.Console(),
-      new transports.File({ filename: "./logs/error.log", level: "error" }),
-      new transports.File({ filename: "./logs/combined.log" }),
+      new transports.File({
+        filename: process.env.ERROR_LOG_PATH ?? "./logs/error.log",
+        level: "error",
+      }),
+      new transports.File({
+        filename: process.env.COMBINED_LOG_PATH ?? "./logs/combined.log",
+      }),
     ],
   })
 }
