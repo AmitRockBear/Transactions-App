@@ -1,5 +1,6 @@
 import { client } from "../db/prisma"
 import { logger } from "../logger"
+import { type Fields, type Projection, type Query } from "../types"
 import { getErrorMessage } from "../utils"
 import { type UserWithoutAccounts } from "./user"
 
@@ -13,22 +14,10 @@ export interface AccountWithUser extends AccountWithoutUser {
   user: UserWithoutAccounts
 }
 
-export interface AccountQuery {
-  id?: number
-  name?: number
-  userId?: number
-}
-
-export interface AccountProjection {
-  id?: boolean
-  balance?: boolean
-  user?: boolean
-}
-
-export const getAccountsByQuery = async (
-  query?: AccountQuery,
-  projection?: AccountProjection
-): Promise<AccountWithUser[] | null> => {
+export const getAccountsByQuery = async <keys extends keyof AccountWithUser>(
+  query?: Query<AccountWithUser>,
+  projection?: Projection<AccountWithUser>
+): Promise<Fields<AccountWithUser, keys>[] | null> => {
   logger.info(
     `Getting accounts by query: ${JSON.stringify(
       query
@@ -39,7 +28,7 @@ export const getAccountsByQuery = async (
     return (await client.account.findMany({
       where: query,
       select: projection,
-    })) as AccountWithUser[] | null
+    })) as unknown as Fields<AccountWithUser, keys>[] | null
   } catch (error) {
     throw new Error(
       `Failed to get accounts by query, due to error: ${getErrorMessage(error)}`
@@ -47,10 +36,10 @@ export const getAccountsByQuery = async (
   }
 }
 
-export const getAccountById = async (
-  id: number,
-  projection?: AccountProjection
-): Promise<AccountWithUser | null> => {
+export const getAccountById = async <keys extends keyof AccountWithUser>(
+  id: AccountWithoutUser["id"],
+  projection?: Projection<AccountWithUser>
+): Promise<Fields<AccountWithUser, keys> | null> => {
   logger.info(
     `Getting account with id: ${id}, with projection: ${JSON.stringify(
       projection
@@ -61,7 +50,7 @@ export const getAccountById = async (
     return (await client.account.findFirst({
       where: { id },
       select: projection,
-    })) as AccountWithUser | null
+    })) as Fields<AccountWithUser, keys> | null
   } catch (error) {
     throw new Error(
       `Failed to get account with id ${id}, due to error: ${getErrorMessage(
@@ -72,8 +61,8 @@ export const getAccountById = async (
 }
 
 export interface CreateAccountData {
-  balance?: number
-  userId: number
+  balance?: AccountWithoutUser["balance"]
+  userId: AccountWithoutUser["userId"]
 }
 
 export const createAccount = async (
@@ -101,8 +90,8 @@ export const createAccount = async (
 }
 
 export const decreaseAccountBalanceById = async (
-  id: number,
-  amountToDecrease: number
+  id: AccountWithoutUser["id"],
+  amountToDecrease: AccountWithoutUser["balance"]
 ): Promise<AccountWithoutUser> => {
   logger.info(
     `Decreasing balance of account with id: ${id}, by ${amountToDecrease}`
@@ -125,8 +114,8 @@ export const decreaseAccountBalanceById = async (
 }
 
 export const increaseAccountBalanceById = async (
-  id: number,
-  amountToIncrease: number
+  id: AccountWithoutUser["id"],
+  amountToIncrease: AccountWithoutUser["balance"]
 ): Promise<AccountWithoutUser> => {
   logger.info(
     `Increasing balance of account with id: ${id}, by ${amountToIncrease}`
@@ -149,8 +138,8 @@ export const increaseAccountBalanceById = async (
 }
 
 export const updateAccountsUserId = async (
-  accountId: number,
-  userId: number
+  accountId: AccountWithoutUser["id"],
+  userId: AccountWithoutUser["userId"]
 ): Promise<AccountWithoutUser> => {
   logger.info(
     `Update user of account with id: ${accountId} to user with id: ${userId}`
@@ -173,7 +162,7 @@ export const updateAccountsUserId = async (
 }
 
 export const deleteAccountById = async (
-  id: number
+  id: AccountWithoutUser["id"]
 ): Promise<AccountWithoutUser> => {
   logger.info(`Deleting account with id: ${id}`)
 

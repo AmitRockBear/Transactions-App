@@ -3,17 +3,20 @@ import {
   createAccount,
   getAccountById,
   getAccountsByQuery,
-  type CreateAccountData,
   decreaseAccountBalanceById,
   increaseAccountBalanceById,
   deleteAccountById,
+  type CreateAccountData,
+  type AccountWithoutUser,
 } from "../../db"
 
 export const accountListHandler = async () => {
   return await getAccountsByQuery()
 }
 
-export const accountByIdHandler = async (opts: { input: number }) => {
+export const accountByIdHandler = async (opts: {
+  input: AccountWithoutUser["id"]
+}) => {
   const { input: id } = opts
   return await getAccountById(id)
 }
@@ -25,7 +28,9 @@ export const accountCreateHandler = async (opts: {
   return await createAccount(input)
 }
 
-export const accountDeleteByIdHandler = async (opts: { input: number }) => {
+export const accountDeleteByIdHandler = async (opts: {
+  input: AccountWithoutUser["id"]
+}) => {
   const { input: id } = opts
 
   await deleteAccountById(id)
@@ -34,9 +39,9 @@ export const accountDeleteByIdHandler = async (opts: { input: number }) => {
 }
 
 interface AccountTransactionInput {
-  fromAccountId: number
-  toAccountId: number
-  transactionAmount: number
+  fromAccountId: AccountWithoutUser["id"]
+  toAccountId: AccountWithoutUser["id"]
+  transactionAmount: AccountWithoutUser["balance"]
 }
 
 export const accountTransactionHandler = async (opts: {
@@ -60,7 +65,6 @@ export const accountTransactionHandler = async (opts: {
     return `Transaction has failed, account with id ${toAccountId} (the account getting the money) does not exist`
 
   try {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     await client.$transaction(async (_) => {
       await decreaseAccountBalanceById(fromAccountId, transactionAmount)
       await increaseAccountBalanceById(toAccountId, transactionAmount)

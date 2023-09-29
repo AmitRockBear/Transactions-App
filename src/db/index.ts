@@ -4,8 +4,8 @@ export {
   getUserById,
   createUser,
   CreateUserInput,
-  UserQuery,
-  UserProjection,
+  UserWithoutAccounts,
+  UserWithAccounts,
 } from "./user"
 export {
   createAccount,
@@ -14,7 +14,8 @@ export {
   deleteAccountById,
   increaseAccountBalanceById,
   decreaseAccountBalanceById,
-  AccountProjection,
-  AccountQuery,
+  updateAccountsUserId,
   CreateAccountData,
+  AccountWithoutUser,
+  AccountWithUser,
 } from "./account"
