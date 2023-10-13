@@ -1,3 +1,4 @@
+import type z from "zod"
 import { client } from "../../db/prisma"
 import {
   createAccount,
@@ -6,9 +7,12 @@ import {
   decreaseAccountBalanceById,
   increaseAccountBalanceById,
   deleteAccountById,
-  type CreateAccountData,
   type AccountWithoutUser,
 } from "../../db"
+import {
+  type accountCreateInputValidation,
+  type accountTransactionInputValidation,
+} from "./router"
 
 export const accountListHandler = async () => {
   return await getAccountsByQuery()
@@ -22,7 +26,7 @@ export const accountByIdHandler = async (opts: {
 }
 
 export const accountCreateHandler = async (opts: {
-  input: CreateAccountData
+  input: z.infer<typeof accountCreateInputValidation>
 }) => {
   const { input } = opts
   return await createAccount(input)
@@ -38,14 +42,8 @@ export const accountDeleteByIdHandler = async (opts: {
   return true
 }
 
-interface AccountTransactionInput {
-  fromAccountId: AccountWithoutUser["id"]
-  toAccountId: AccountWithoutUser["id"]
-  transactionAmount: AccountWithoutUser["balance"]
-}
-
 export const accountTransactionHandler = async (opts: {
-  input: AccountTransactionInput
+  input: z.infer<typeof accountTransactionInputValidation>
 }) => {
   const { input } = opts
   const { fromAccountId, toAccountId, transactionAmount } = input

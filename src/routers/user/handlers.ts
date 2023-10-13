@@ -1,12 +1,16 @@
+import type z from "zod"
 import {
   client,
   getUsersByQuery,
   getUserById,
   createUser,
   updateAccountsUserId,
-  type CreateUserInput,
   type UserWithoutAccounts,
 } from "../../db"
+import {
+  type userCreateInputValidation,
+  type userTransferAccountsInputValidation,
+} from "./router"
 import { getErrorMessage } from "../../utils"
 
 export const userListHandler = async () => {
@@ -20,18 +24,15 @@ export const userByIdHandler = async (opts: {
   return await getUserById(id)
 }
 
-export const userCreateHandler = async (opts: { input: CreateUserInput }) => {
+export const userCreateHandler = async (opts: {
+  input: z.infer<typeof userCreateInputValidation>
+}) => {
   const { input } = opts
   return await createUser(input)
 }
 
-interface userTransfterAccountsInput {
-  fromUserId: UserWithoutAccounts["id"]
-  toUserId: UserWithoutAccounts["id"]
-}
-
 export const userTransfterAccountsHandler = async (opts: {
-  input: userTransfterAccountsInput
+  input: z.infer<typeof userTransferAccountsInputValidation>
 }) => {
   const { input } = opts
   const { fromUserId, toUserId } = input

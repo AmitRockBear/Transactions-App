@@ -1,4 +1,4 @@
-import { z } from "zod"
+import z from "zod"
 
 import { router, publicProcedure } from "../../trpc"
 import {
@@ -9,14 +9,22 @@ import {
 } from "./handlers"
 
 const isId = z.number().refine(Number.isInteger)
+export const userCreateInputValidation = z.object({
+  name: z.string(),
+  description: z.string().optional(),
+})
+export const userTransferAccountsInputValidation = z.object({
+  fromUserId: isId,
+  toUserId: isId,
+})
 
 export const userRouter = router({
   userList: publicProcedure.query(userListHandler),
   userById: publicProcedure.input(isId).query(userByIdHandler),
   userCreate: publicProcedure
-    .input(z.object({ name: z.string(), description: z.string().optional() }))
+    .input(userCreateInputValidation)
     .mutation(userCreateHandler),
   userTransfterAccounts: publicProcedure
-    .input(z.object({ fromUserId: isId, toUserId: isId }))
+    .input(userTransferAccountsInputValidation)
     .mutation(userTransfterAccountsHandler),
 })
