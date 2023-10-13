@@ -1,10 +1,10 @@
 import { connectDb, disconnectDb } from "../db"
+import { validateEnvVars } from "../envVarsValidator"
 import { initLogger, logger } from "../logger"
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-require("dotenv").config()
-
 export default async () => {
+  validateEnvVars()
+
   initLogger()
 
   logger.info("Starting server setup")

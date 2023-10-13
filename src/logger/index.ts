@@ -1,4 +1,5 @@
 import { type Logger, createLogger, transports, format } from "winston"
+import { envServer } from "../envVarsValidator"
 
 export let logger: Logger
 
@@ -19,11 +20,11 @@ export const initLogger = () => {
     transports: [
       new transports.Console(),
       new transports.File({
-        filename: process.env.ERROR_LOG_PATH ?? "./logs/error.log",
+        filename: envServer.ERROR_LOG_PATH,
         level: "error",
       }),
       new transports.File({
-        filename: process.env.COMBINED_LOG_PATH ?? "./logs/combined.log",
+        filename: envServer.COMBINED_LOG_PATH,
       }),
     ],
   })
