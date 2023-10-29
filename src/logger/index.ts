@@ -17,15 +17,6 @@ export const initLogger = () => {
         (info) => `${info.timestamp}  [${info.level}] : ${info.message}`
       )
     ),
-    transports: [
-      new transports.Console(),
-      new transports.File({
-        filename: envServer.ERROR_LOG_PATH,
-        level: "error",
-      }),
-      new transports.File({
-        filename: envServer.COMBINED_LOG_PATH,
-      }),
-    ],
+    transports: [new transports.Console()],
   })
 }
