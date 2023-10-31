@@ -1,5 +1,5 @@
 import { client } from "./prisma"
-import { logger } from "../../../../../../logger/logger"
+import { logger } from "../logger"
 import { type Fields, type Projection, type Query } from "../types"
 import { getErrorMessage } from "../utils"
 import { type UserWithoutAccounts } from "./user"

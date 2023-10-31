@@ -10,7 +10,7 @@ import {
 import {
   type userCreateInputValidation,
   type userTransferAccountsInputValidation,
-} from "./router"
+} from "../routers/user"
 import { getErrorMessage } from "../../utils"
 
 export const userListHandler = async () => {

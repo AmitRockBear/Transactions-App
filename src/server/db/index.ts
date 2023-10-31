@@ -3,9 +3,9 @@ export {
   getUsersByQuery,
   getUserById,
   createUser,
-  CreateUserInput,
-  UserWithoutAccounts,
-  UserWithAccounts,
+  type CreateUserInput,
+  type UserWithoutAccounts,
+  type UserWithAccounts,
 } from "./user"
 export {
   createAccount,
@@ -15,7 +15,7 @@ export {
   increaseAccountBalanceById,
   decreaseAccountBalanceById,
   updateAccountsUserId,
-  CreateAccountData,
-  AccountWithoutUser,
-  AccountWithUser,
+  type CreateAccountData,
+  type AccountWithoutUser,
+  type AccountWithUser,
 } from "./account"

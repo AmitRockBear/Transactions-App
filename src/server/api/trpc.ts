@@ -1,7 +1,6 @@
 import { initTRPC } from "@trpc/server"
 import { ZodError } from "zod"
-
-import { logger } from "../../../../../../logger/logger"
+import { logger } from "../logger"
 import { getErrorMessage } from "../utils"
 
 const t = initTRPC.create({

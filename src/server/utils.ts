@@ -12,7 +12,7 @@ export const getErrorMessage = (error: unknown): string => {
     else errorMessage = String(error)
     if (error instanceof TRPCError) {
       if (error.code === "BAD_REQUEST" && error.cause instanceof ZodError) {
-        errorMessage = error.cause.flatten().formErrors[0]
+        errorMessage = error.cause.flatten().formErrors[0] as string
       } else errorMessage = error.message
     }
   }

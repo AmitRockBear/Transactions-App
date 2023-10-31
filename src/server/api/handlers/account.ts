@@ -12,7 +12,7 @@ import {
 import {
   type accountCreateInputValidation,
   type accountTransactionInputValidation,
-} from "./router"
+} from "../routers/account"
 
 export const accountListHandler = async () => {
   return await getAccountsByQuery()

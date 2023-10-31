@@ -1,4 +1,4 @@
-import { logger } from "../../../../../../logger/logger"
+import { logger } from "../logger"
 import { getErrorMessage } from "../utils"
 import { type Fields, type Projection, type Query } from "../types"
 import { type AccountWithoutUser } from "./account"

@@ -1,11 +1,10 @@
 import { router } from "./trpc"
+import { accountRouter } from "./routers/account"
+import { userRouter } from "./routers/user"
 
-import { accountRouter } from "./routers/account/router"
-import { userRouter } from "./routers/user/router"
-
-export const serverRouter = router({
+export const appRouter = router({
   user: userRouter,
   account: accountRouter,
 })
 
-export type ServerRouter = typeof serverRouter
+export type AppRouter = typeof appRouter

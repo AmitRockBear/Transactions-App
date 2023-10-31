@@ -1,13 +1,12 @@
 import z from "zod"
-
-import { router, publicProcedure } from "../../trpc"
+import { router, publicProcedure } from "../trpc"
 import {
   accountByIdHandler,
   accountCreateHandler,
   accountDeleteByIdHandler,
   accountListHandler,
   accountTransactionHandler,
-} from "./handlers"
+} from "../handlers/account"
 
 const isId = z.number().refine(Number.isInteger)
 export const accountCreateInputValidation = z.object({
