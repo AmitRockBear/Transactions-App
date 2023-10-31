@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client"
 
-import { logger } from "../logger"
+import { logger } from "../../../../../../logger/logger"
 import { getErrorMessage } from "../utils"
 
 export const client = new PrismaClient()
